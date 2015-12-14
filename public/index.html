@@ -126,7 +126,7 @@
   </center>
   </div>
         <div class="col-sm-6 col-sm-push-2">
-            <div style="width:50%">
+            <div style="width:60%">
                 <canvas id="canvas" height="450" width="450"></canvas>
             </div>
         </div>
@@ -167,7 +167,7 @@
             var imageWrapper = $('<div class="image_wrapper"></div>').appendTo(div);
             var maxImgWidth = parseInt(div.prev().children(".img_max_width").html(), 10);
             var maxImgHeight = parseInt(div.prev().children(".img_max_height").html(), 10);
-            var tempWidth = 600;
+            var tempWidth = 400;
             var imgWidth = tempWidth;
             var imgHeight = photo.height / (photo.width / tempWidth);
             var scaleFactor = Math.min(maxImgWidth / imgWidth, maxImgHeight / imgHeight);
