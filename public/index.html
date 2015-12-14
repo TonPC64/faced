@@ -1,6 +1,6 @@
 <html>
 	<head>
-	<title>Face Detection</title>
+		<title>Face Detection</title>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="FCClientJS.js"></script>
 		<!-- Latest compiled and minified CSS -->
@@ -72,11 +72,11 @@
 		<center>
 		<div>
 			<div class="row" style="margin-left: 0px;margin-top: 15px;">
-				<form class="form-inline">
+				<form class="form-inline" method="POST" action="">
 					<div class="form-group" style=" margin-left: 10px;">
 						<div class="input-group">
 							<div class="input-group-addon">URL</div>
-							<input type="text" class="form-control" id="http" placeholder="http://">
+							<input type="text" class="form-control" name="url" id="http" placeholder="http://" required>
 							
 						</div>
 					</div>
@@ -88,6 +88,8 @@
 		</div>
 		</center>
 		<script type="text/javascript">
+		
+		
 			$(function() {
 				function drawFacesAddPoint(control, imgWidth, imgHeight, point, title) {
 					var x = Math.round(point.x * imgWidth / 100);
@@ -148,10 +150,20 @@
 				function callback(data) {
 					drawFaces($("#conent_demo_image"), data.photos[0], true);
 				}
+
+				var urlpass;
+				$.getJSON('/data', function(data) {
+				urlpass= data.url;
+					
 				var client = new FCClientJS('5eae68458cf640a8b0cce30bc4e140bb', '0c8f2a5e09344ddcbaaf2f6e934ef9d4');
 				var options = new Object();
 				options.detect_all_feature_points = false;
-				client.facesDetect("http://www.meekhao.com/wp-content/uploads/2015/05/james3.jpg", null, options, callback)
+				client.facesDetect(urlpass, null, options, callback)
+
+					
+				});
+				
+				
 			});
 		</script>
 	</body>
