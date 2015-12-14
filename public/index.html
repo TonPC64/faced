@@ -16,7 +16,14 @@
         float: left;
         margin-bottom: 10px;
     }
-    
+    body {
+
+    	 background-image: url("bg.jpg"); no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	}
     .image_wrapper {
         float: left;
         position: relative;
@@ -79,24 +86,32 @@
 </head>
 
 <body>
-    <div class="row">
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container" style="padding-top: 15px;">
+    <center><div class="row">
+                <form class="form-inline" method="POST" action="">
+                    <div class="form-group" style=" margin-left: 10px;">
+                        <div class="input-group" style="width: 500px;">
+                            <div class="input-group-addon">URL</div>
+                            <input type="text" class="form-control" name="url" id="http" placeholder="http://" required autocomplete="off">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">SUBMIT</button>
+                </form>
+            </div>
+   <center>
+  </div>
+</nav>
+
+    <div class="row" style="margin-top: 100px;">
         <div class="col-sm-6 col-sm-push-2">
             <div style="width:50%">
                 <canvas id="canvas" height="450" width="450"></canvas>
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="row" style="margin-left: 0px;margin-top: 15px;">
-                <form class="form-inline" method="POST" action="">
-                    <div class="form-group" style=" margin-left: 10px;">
-                        <div class="input-group">
-                            <div class="input-group-addon">URL</div>
-                            <input type="text" class="form-control" name="url" id="http" placeholder="http://" required>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">SUBMIT</button>
-                </form>
-            </div>
+            
             <div id="conent_demo_image" style="width: 100%;">
             </div>
         </div>
@@ -135,7 +150,7 @@
                 imgWidth = Math.round(imgWidth * scaleFactor);
                 imgHeight = Math.round(imgHeight * scaleFactor);
             }
-            imageWrapper.append($('<img alt="face detection results" width="' + imgWidth + 'px" height="' + imgHeight + 'px" src="' + photo.url + '" />'));
+            imageWrapper.append($('<img class="img-rounded" alt="face detection results" width="' + imgWidth + 'px" height="' + imgHeight + 'px" src="' + photo.url + '" />'));
             if (photo.tags) {
                 for (var i = 0; i < photo.tags.length; ++i) {
                     var tag = photo.tags[i];
