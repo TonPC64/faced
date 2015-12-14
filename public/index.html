@@ -1,69 +1,92 @@
 <html>
 	<head>
-		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<title>Face Detection</title>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="FCClientJS.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 		<style type="text/css">
-#content_demo_image {
-	float: left;
-	margin-bottom: 10px;
-}
-.image_wrapper {
-	float: left;
-	position: relative;
-	display: inline-block;
-}
-.api_face {
-	opacity: 0.8;
-	background: transparent 0 0 repeat;
-	position: absolute;
-	background-image: url('.');
-}
-.api_face_inner {
-	width: 100%;
-	height: 100%;
-	border: 5px solid #88cc00;
-	left: -5px;
-	top: -5px;
-	position: relative;
-}
-.api_face_inner_tid {
-	color: #88cc00;
-	font-weight: bold;
-	font-size: 20px;
-	margin-top: -26px;
-}
-.api_face_inner_sim {
-	display: none;
-}
-.api_face_point {
-	position: absolute;
-	width: 3px;
-	height: 3px;
-	background: #88cc00;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	border-radius: 50%;
-	border: 1px solid #88cc00;
-	margin: -2px 0 0 -2px;
-	font-size: 0;
-}
-.api_face_all_point {
-	position: absolute;
-	width: 3px;
-	height: 3px;
-	background: #e4d00a;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	border-radius: 50%;
-	border: 1px solid #e4d00a;
-	margin: -2px 0 0 -2px;
-	font-size: 0;
-}
+		#content_demo_image {
+		float: left;
+		margin-bottom: 10px;
+		}
+		.image_wrapper {
+		float: left;
+		position: relative;
+		display: inline-block;
+		}
+		.api_face {
+		opacity: 0.8;
+		background: transparent 0 0 repeat;
+		position: absolute;
+		background-image: url('.');
+		}
+		.api_face_inner {
+		width: 100%;
+		height: 100%;
+		border: 5px solid #88cc00;
+		left: -5px;
+		top: -5px;
+		position: relative;
+		}
+		.api_face_inner_tid {
+		color: #88cc00;
+		font-weight: bold;
+		font-size: 20px;
+		margin-top: -26px;
+		}
+		.api_face_inner_sim {
+		display: none;
+		}
+		.api_face_point {
+		position: absolute;
+		width: 3px;
+		height: 3px;
+		background: #88cc00;
+		-moz-border-radius: 50%;
+		-webkit-border-radius: 50%;
+		border-radius: 50%;
+		border: 1px solid #88cc00;
+		margin: -2px 0 0 -2px;
+		font-size: 0;
+		}
+		.api_face_all_point {
+		position: absolute;
+		width: 3px;
+		height: 3px;
+		background: #e4d00a;
+		-moz-border-radius: 50%;
+		-webkit-border-radius: 50%;
+		border-radius: 50%;
+		border: 1px solid #e4d00a;
+		margin: -2px 0 0 -2px;
+		font-size: 0;
+		}
 		</style>
 	</head>
 	<body>
+		<center>
+		<div>
+			<div class="row" style="margin-left: 0px;margin-top: 15px;">
+				<form class="form-inline">
+					<div class="form-group" style=" margin-left: 10px;">
+						<div class="input-group">
+							<div class="input-group-addon">URL</div>
+							<input type="text" class="form-control" id="http" placeholder="http://">
+							
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">SUBMIT</button>
+				</form>
+			</div>
+		</div>
 		<div id="conent_demo_image" style="width: 480px;">
 		</div>
+		</center>
 		<script type="text/javascript">
 			$(function() {
 				function drawFacesAddPoint(control, imgWidth, imgHeight, point, title) {
@@ -86,8 +109,9 @@
 					var imageWrapper = $('<div class="image_wrapper"></div>').appendTo(div);
 					var maxImgWidth = parseInt(div.prev().children(".img_max_width").html(), 10);
 					var maxImgHeight = parseInt(div.prev().children(".img_max_height").html(), 10);
-					var imgWidth = photo.width;
-					var imgHeight = photo.height;
+					var tempWidth = 600;
+					var imgWidth = tempWidth;
+					var imgHeight = photo.height/(photo.width/tempWidth);
 					var scaleFactor = Math.min(maxImgWidth / imgWidth, maxImgHeight / imgHeight);
 					if (scaleFactor < 1) {
 						imgWidth = Math.round(imgWidth * scaleFactor);
@@ -127,7 +151,7 @@
 				var client = new FCClientJS('5eae68458cf640a8b0cce30bc4e140bb', '0c8f2a5e09344ddcbaaf2f6e934ef9d4');
 				var options = new Object();
 				options.detect_all_feature_points = false;
-				client.facesDetect("https://scontent.fbkk5-1.fna.fbcdn.net/hphotos-xal1/v/t1.0-9/12105882_1665450497031720_7593699254375630318_n.jpg?oh=35d83699df2bca564e9c022541472861&oe=571F96A4", null, options, callback)
+				client.facesDetect("http://www.meekhao.com/wp-content/uploads/2015/05/james3.jpg", null, options, callback)
 			});
 		</script>
 	</body>
