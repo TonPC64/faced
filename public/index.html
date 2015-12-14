@@ -16,14 +16,16 @@
         float: left;
         margin-bottom: 10px;
     }
+    
     body {
-
-    	 background-image: url("bg.jpg"); no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-	}
+        background-image: url("bg.jpg");
+        no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    
     .image_wrapper {
         float: left;
         position: relative;
@@ -86,59 +88,52 @@
 </head>
 
 <body>
-
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-	<center>
-	
-	
-      <img src="logo.png" style="
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <center>
+            <img src="logo.png" style="
     width: 170px;
     border-top-width: 5px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 13px;
+    padding-bottom: 13px;
     padding-left: 0px;
 
 ">
-
-    
-    </center>
-</nav>
-
+        </center>
+    </nav>
     <div class="row" style="margin-top: 100px;">
-    	<div class="col-sm-12">
-    	<center>
-  <div class="container" style="padding-top: 25px;">
-    <div class="row">
-                <form class="form-inline" method="POST" action="" style="
+        <div class="col-sm-12">
+            <center>
+                <div class="container" style="padding-top: 25px;">
+                    <div class="row">
+                        <form class="form-inline" method="POST" action="" style="
     margin-bottom: 30px;
 ">
-                    <div class="form-group" style=" margin-left: 10px;">
-                        <div class="input-group" style="width: 500px;">
-                            <div class="input-group-addon">PIC Url</div>
-                            <input type="text" class="form-control" name="url" id="http" placeholder="http://" required autocomplete="off">
-                        </div>
+                            <div class="form-group" style=" margin-left: 10px;">
+                                <div class="input-group" style="width: 500px;">
+                                    <div class="input-group-addon">PIC Url</div>
+                                    <input type="text" class="form-control" name="url" id="http" placeholder="http://" required autocomplete="off">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">SUBMIT</button>
+                        </form>
                     </div>
-                    <button type="submit" class="btn btn-primary">SUBMIT</button>
-                </form>
-            </div>
-   
-  </div>
-  </center>
-  </div>
+                </div>
+            </center>
+        </div>
         <div class="col-sm-6 col-sm-push-2">
             <div style="width:60%">
                 <canvas id="canvas" height="450" width="450"></canvas>
             </div>
         </div>
         <div class="col-sm-6">
-            
             <div id="conent_demo_image" style="width: 100%;">
             </div>
         </div>
         <div class="col-sm-12">
-            <center><div style="width:50%">
-                <canvas id="gender" height="450" width="450"></canvas>
-            </div></center>
+            
+                <div class="col-sm-6 col-sm-push-5 male"></div>
+                <div class="col-sm-6 female"></div>
+            
         </div>
     </div>
     <script type="text/javascript">
@@ -151,7 +146,7 @@
             var pointTitle = (title == null ? '' : title + ': ') + 'X=' + x + ', Y=' + y + ', Confidence=' + point.confidence + '%' + (title == null ? ', Id=' + point.id.toString(16) : '');
             control.append($('<span class="' + pointClass + '" style="' + pointStyle + '" title="' + pointTitle + '"></span>'));
         }
-        
+
 
         function drawFaces(div, photo, drawPoints) {
             if (!photo) {
@@ -163,7 +158,7 @@
                 return;
             }
 
-           
+
             var imageWrapper = $('<div class="image_wrapper"></div>').appendTo(div);
             var maxImgWidth = parseInt(div.prev().children(".img_max_width").html(), 10);
             var maxImgHeight = parseInt(div.prev().children(".img_max_height").html(), 10);
@@ -204,58 +199,62 @@
             }
         }
 
-        
+
 
         function callback(data) {
             drawFaces($("#conent_demo_image"), data.photos[0], true);
             var attribute = data.photos[0].tags
 
-            		male = 0
-            		female = 0
-            		if(attribute[0].attributes.gender.value=="male") male++;
-            		else female++;
-            	
-            	for(i=1;i<attribute.length;i++){
-            		attribute[0].attributes.anger.confidence += attribute[i].attributes.anger.confidence
-            		attribute[0].attributes.disgust.confidence += attribute[i].attributes.anger.confidence
-            		attribute[0].attributes.fear.confidence += attribute[i].attributes.anger.confidence
-            		attribute[0].attributes.happiness.confidence += attribute[i].attributes.anger.confidence
-            		attribute[0].attributes.sadness.confidence += attribute[i].attributes.anger.confidence
-            		attribute[0].attributes.surprise.confidence += attribute[i].attributes.anger.confidence
-            		if(attribute[i].attributes.gender.value=="male") male++;
-            		else female++;
+            male = 0
+            female = 0
+            if (attribute[0].attributes.gender.value == "male") male++;
+            else female++;
 
-            	}
-            		console.log(male+" "+female)
+            for (i = 1; i < attribute.length; i++) {
+                attribute[0].attributes.anger.confidence += attribute[i].attributes.anger.confidence
+                attribute[0].attributes.disgust.confidence += attribute[i].attributes.anger.confidence
+                attribute[0].attributes.fear.confidence += attribute[i].attributes.anger.confidence
+                attribute[0].attributes.happiness.confidence += attribute[i].attributes.anger.confidence
+                attribute[0].attributes.sadness.confidence += attribute[i].attributes.anger.confidence
+                attribute[0].attributes.surprise.confidence += attribute[i].attributes.anger.confidence
+                if (attribute[i].attributes.gender.value == "male") male++;
+                else female++;
 
-            		attribute[0].attributes.anger.confidence /= attribute.length
-            		attribute[0].attributes.disgust.confidence /= attribute.length
-            		attribute[0].attributes.fear.confidence /= attribute.length
-            		attribute[0].attributes.happiness.confidence /= attribute.length
-            		attribute[0].attributes.sadness.confidence /= attribute.length
-            		attribute[0].attributes.surprise.confidence /= attribute.length
-            	console.log(attribute)
+            }
+            console.log(male + " " + female)
+
+            $('.male').prepend('<img id="imgmale" src="male.png" style="width: 127px;"/>'+'<div style="font-size: 70;position: absolute;top: 50;left: 60;">'+male+'</div>')
+            $('.female').prepend('<img id="imgfemale" src="female.png" style="width: 127px;"/>'+'<div style="font-size: 70;position: absolute;top: 50;left: 60;">'+female+'</div>')
+
+
+            attribute[0].attributes.anger.confidence /= attribute.length
+            attribute[0].attributes.disgust.confidence /= attribute.length
+            attribute[0].attributes.fear.confidence /= attribute.length
+            attribute[0].attributes.happiness.confidence /= attribute.length
+            attribute[0].attributes.sadness.confidence /= attribute.length
+            attribute[0].attributes.surprise.confidence /= attribute.length
+            console.log(attribute)
             var radarChartData = {
-               
-                labels: ["Anger", "Disgust", "Fear", "Happiness", "Sadness", "Surprise"],
-                    datasets: [{
-                        label: "My Mood dataset",
-                        fillColor: "rgba(151,187,205,0.2)",
-                        strokeColor: "rgba(151,187,205,1)",
-                        pointColor: "rgba(151,187,205,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: [attribute[0].attributes.anger.confidence, attribute[0].attributes.disgust.confidence, attribute[0].attributes.fear.confidence, attribute[0].attributes.happiness.confidence, attribute[0].attributes.sadness.confidence, attribute[0].attributes.surprise.confidence]
-                    }]
-            };
-            
-                window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
-                    responsive: true
-                });
 
-                document.getElementById("canvas")
-            
+                labels: ["Anger", "Disgust", "Fear", "Happiness", "Sadness", "Surprise"],
+                datasets: [{
+                    label: "My Mood dataset",
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    data: [attribute[0].attributes.anger.confidence, attribute[0].attributes.disgust.confidence, attribute[0].attributes.fear.confidence, attribute[0].attributes.happiness.confidence, attribute[0].attributes.sadness.confidence, attribute[0].attributes.surprise.confidence]
+                }]
+            };
+
+            window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
+                responsive: true
+            });
+
+            document.getElementById("canvas")
+
         }
 
         var urlpass;
@@ -272,9 +271,6 @@
 
 
     });
-			
-
-        
     </script>
 </body>
 
