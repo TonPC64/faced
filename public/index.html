@@ -88,23 +88,43 @@
 <body>
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container" style="padding-top: 15px;">
-    <center><div class="row">
-                <form class="form-inline" method="POST" action="">
+	<center>
+	
+	
+      <img src="logo.png" style="
+    width: 170px;
+    border-top-width: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 0px;
+
+">
+
+    
+    </center>
+</nav>
+
+    <div class="row" style="margin-top: 100px;">
+    	<div class="col-sm-12">
+    	<center>
+  <div class="container" style="padding-top: 25px;">
+    <div class="row">
+                <form class="form-inline" method="POST" action="" style="
+    margin-bottom: 30px;
+">
                     <div class="form-group" style=" margin-left: 10px;">
                         <div class="input-group" style="width: 500px;">
-                            <div class="input-group-addon">URL</div>
+                            <div class="input-group-addon">PIC Url</div>
                             <input type="text" class="form-control" name="url" id="http" placeholder="http://" required autocomplete="off">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">SUBMIT</button>
                 </form>
             </div>
-   <center>
+   
   </div>
-</nav>
-
-    <div class="row" style="margin-top: 100px;">
+  </center>
+  </div>
         <div class="col-sm-6 col-sm-push-2">
             <div style="width:50%">
                 <canvas id="canvas" height="450" width="450"></canvas>
@@ -114,6 +134,11 @@
             
             <div id="conent_demo_image" style="width: 100%;">
             </div>
+        </div>
+        <div class="col-sm-12">
+            <center><div style="width:50%">
+                <canvas id="gender" height="450" width="450"></canvas>
+            </div></center>
         </div>
     </div>
     <script type="text/javascript">
@@ -183,8 +208,13 @@
 
         function callback(data) {
             drawFaces($("#conent_demo_image"), data.photos[0], true);
+            var attribute = data.photos[0].tags
 
-            	var attribute = data.photos[0].tags
+            		male = 0
+            		female = 0
+            		if(attribute[0].attributes.gender.value=="male") male++;
+            		else female++;
+            	
             	for(i=1;i<attribute.length;i++){
             		attribute[0].attributes.anger.confidence += attribute[i].attributes.anger.confidence
             		attribute[0].attributes.disgust.confidence += attribute[i].attributes.anger.confidence
@@ -192,7 +222,11 @@
             		attribute[0].attributes.happiness.confidence += attribute[i].attributes.anger.confidence
             		attribute[0].attributes.sadness.confidence += attribute[i].attributes.anger.confidence
             		attribute[0].attributes.surprise.confidence += attribute[i].attributes.anger.confidence
+            		if(attribute[i].attributes.gender.value=="male") male++;
+            		else female++;
+
             	}
+            		console.log(male+" "+female)
 
             		attribute[0].attributes.anger.confidence /= attribute.length
             		attribute[0].attributes.disgust.confidence /= attribute.length
@@ -219,6 +253,8 @@
                 window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
                     responsive: true
                 });
+
+                document.getElementById("canvas")
             
         }
 

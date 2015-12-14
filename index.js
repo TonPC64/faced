@@ -5,7 +5,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.set('port', (process.env.PORT || 5000))
 
 app.use(express.static('public'))
-data = {url: 'http://www.meekhao.com/wp-content/uploads/2015/05/james3.jpg'}
+data = {url: 'http://moviewallpaperpics.com/wp-content/uploads/2015/04/Joker-4.jpg'}
 
 app.get('/data', (req, res) => res.json(data))
 
